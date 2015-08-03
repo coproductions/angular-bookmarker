@@ -4,11 +4,11 @@ angular.module('myApp',[
   'ngRoute',
   'ngAnimate'
   ])
-  .config([function(){
+  .config(['$routeProvider',function($routeProvider){
 
   $routeProvider
       .when('/', {
-        templateUrl : 'views/default.html'
+        templateUrl : 'views/list.html'
       })
       .when('/list', {
         templateUrl : 'views/list.html',
@@ -25,7 +25,7 @@ angular.module('myApp',[
       .otherwise({
         templateUrl : 'views/404.html'
       })
-  }]);
+  }])
   .run(['$rootScope',
     function(){
 
