@@ -69,6 +69,7 @@ mongoose.connect('mongodb://localhost/angular-bookmarker');
 
 app.use(express.static('./public'));
 
+<<<<<<< HEAD
 app.post('/login',
   passport.authenticate('local', { successRedirect: '/',
                                    failureRedirect: '/login'})
@@ -163,13 +164,11 @@ app.delete('comments/:comment_id', function(res,req) {
 
 });
 
-
-
-app.get('*', function(req,res){
-  res.sendFile('./public/index.html',
-              {
-              root: __dirname
-              })
-})
+// app.get('*', function(req,res){
+//   res.sendFile('./public/index.html',
+//               {
+//               root: __dirname
+//               })
+// })
 
 app.listen(3000);
