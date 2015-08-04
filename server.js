@@ -1,9 +1,12 @@
 var express = require('express');
 var session = require('express-session');
 var app = express();
+var method_override = require('method-override');
+var bodyParser = require('body-parser');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
+var db = require('../models');
 
 function ensureAuthenticated(req, res, next) {
 
@@ -18,6 +21,9 @@ app.use(session(
     saveUninitialized: true
   }
 ));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -76,41 +82,41 @@ app.get('/logout', function(req, res){
 
 app.post('/createUser', function(req, res) {
 
-  // db.user.findAll({
+  db.user.findAll({
 
-  //   where: {
+    where: {
 
-  //     username: req.params.username
-  //   }
-  // }).then(function(user) {
+      username: req.params.username
+    }
+  }).then(function(user) {
 
-  //   if(user.length < 1) {
+    if(user.length < 1) {
 
-  //     var hashed_password = getHash(req.body.password);
+      var hashed_password = getHash(req.body.password);
 
-  //     db.user.create({
+      db.user.create({
 
-  //       username: req.body.username,
-  //       password: hashed_password
+        username: req.body.username,
+        password: hashed_password
 
-  //     }).then(function() {
+      }).then(function() {
 
-  //       db.image.findAll()
-  //         .then(function(images) {
+        db.image.findAll()
+          .then(function(images) {
 
-  //           res.render("index", {
+            res.render("index", {
 
-  //             images: images
-  //           }
-  //         );
-  //       });
-  //     });
+              images: images
+            }
+          );
+        });
+      });
 
-  //   } else {
+    } else {
 
-  //     res.send('Username is already taken.')
-  //   }
-  // });
+      res.send('Username is already taken.')
+    }
+  });
 });
 
 app.get('/linkItems', function(req,res) {
