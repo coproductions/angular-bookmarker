@@ -39,10 +39,25 @@ var LinkItemSchema = new Schema({
   }
 });
 
-LinkItemSchema.methods.getComments = function() {
+// LinkItemSchema.methods.getLinkItem = function() {
 
+// };
 
-};
+// LinkItemSchema.methods.getComments = function() {
+
+// };
+
+// LinkItemSchema.methods.addLinkItem = function() {
+
+// };
+
+// LinkItemSchema.methods.updateLinkItem = function() {
+
+// };
+
+// LinkItemSchema.methods.deleteLinkItem = function() {
+
+// };
 
 var LinkItem = mongoose.model('LinkItem', LinkItemSchema);
 

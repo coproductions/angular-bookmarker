@@ -19,14 +19,33 @@ var CommentSchema = new Schema({
   }
 });
 
-CommentSchema.methods.getLinkItem = function() {
+// CommentSchema.methods.getComments = function() {
 
+// };
 
-};
+// CommentSchema.methods.getComment = function() {
 
-CommentSchema.methods.getUser = function() {
+// };
 
-};
+// CommentSchema.methods.addComment = function() {
+
+// };
+
+// CommentSchema.methods.updateComment = function() {
+
+// };
+
+// CommentSchema.methods.deleteComment = function() {
+
+// };
+
+// CommentSchema.methods.getLinkItem = function() {
+
+// };
+
+// CommentSchema.methods.getUser = function() {
+
+// };
 
 var Comment = mongoose.model('Comment', CommentSchema);
 
