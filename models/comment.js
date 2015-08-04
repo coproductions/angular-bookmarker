@@ -19,6 +19,15 @@ var CommentSchema = new Schema({
   }
 });
 
+CommentSchema.methods.getLinkItem = function() {
+
+
+};
+
+CommentSchema.methods.getUser = function() {
+
+};
+
 var Comment = mongoose.model('Comment', CommentSchema);
 
 module.exports = {

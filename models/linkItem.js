@@ -3,12 +3,10 @@ var Schema = mongoose.Schema;
 
 var LinkItemSchema = new Schema({
   title: {
-    type: String,
-    index: true
+    type: String
   },
   url: {
-    type: String,
-    index: true
+    type: String
   },
   user_id: {
 
@@ -30,16 +28,21 @@ var LinkItemSchema = new Schema({
   visit_count: {
     type: Number
   },
-  tags: {
-    type: [{
-      name:String
-    }]
-  },
+  tags: [{ //check this for syntax and logic
+    name: {
+      type: String,
+      index: true
+    }
+  }],
   private: {
-
     type: Boolean
   }
 });
+
+LinkItemSchema.methods.getComments = function() {
+
+
+};
 
 var LinkItem = mongoose.model('LinkItem', LinkItemSchema);
 
