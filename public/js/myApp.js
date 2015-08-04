@@ -3,11 +3,18 @@
 angular.module('myApp',[
   'ngRoute'
   ])
-  .config(['$routeProvider',function($routeProvider){
+  .config(['$routeProvider','$locationProvider',function($routeProvider,$locationProvider){
+
+   $locationProvider.html5Mode({
+      enabled: true,
+      requireBase: false
+    });
+
+
 
   $routeProvider
       .when('/', {
-        templateUrl : 'views/list.html'
+        templateUrl : 'views/index.html'
       })
       .when('/list', {
         templateUrl : 'views/list.html',
