@@ -1,11 +1,10 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Angular Bookmarker</title>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
   </head>
   <body ng-app="myApp">
@@ -18,20 +17,37 @@
 
 
 
-    </div>
+    </div> -->
 
 
-  <script src="/bower_components/modernizr/modernizr.js"></script>
-   <script src="/bower_components/jquery/dist/jquery.min.js"></script>
- <script src="/bower_components/foundation/js/foundation.min.js"></script>
- <script>
-   $(document).foundation();
- </script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="css/styles.css">
+  <title>Angular Bookmarker</title>
+</head>
+<body ng-app="myApp">
+ <a class="left-off-canvas-toggle" href="#/list" >Menu</a>
 
-  <script src="js/offcanvas.js"></script>
+<div ng-view></div>
+
+
+
+
    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular-route.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular-animate.min.js"></script>
-   <script src="js/myApp.js"></script>
+  <script src="./js/myApp.js"></script>
+  <script src="./js/controllers/login-controller.js"></script>
+  <script src="./js/controllers/list-controller.js"></script>
+  <script src="./js/controllers/editlink-controller.js"></script>
+  <script src="/bower_components/modernizr/modernizr.js"></script>
+   <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="/bower_components/foundation/js/foundation.js"></script>
+  <script src="/bower_components/foundation/js/foundation/foundation.offcanvas.js"></script>
+   <script>
+   $(document).foundation();
+  </script>
   </body>
 </html>

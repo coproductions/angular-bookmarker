@@ -11,15 +11,15 @@ angular.module('myApp',[
       })
       .when('/list', {
         templateUrl : 'views/list.html',
-        controller : 'list'
+        controller : 'listController'
       })
       .when('/login', {
         templateUrl : 'views/login.html',
-        controller : 'login'
+        controller : 'loginController'
       })
       .when('/editlink', {
         templateUrl : 'views/editlink.html',
-        controller : 'editlink'
+        controller : 'editlinkController'
       })
       .otherwise({
         templateUrl : 'views/404.html'
