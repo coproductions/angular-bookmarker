@@ -1,168 +1,126 @@
 var express = require('express');
-var session = require('express-session');
+// var session = require('express-session');
 var app = express();
-var method_override = require('method-override');
-var bodyParser = require('body-parser');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+// var method_override = require('method-override');
+// var bodyParser = require('body-parser');
+// var passport = require('passport');
+// var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
-var db = require('../models');
+var routes = require('./routes/routes.js');
+// var db = require('../models');
 
-function ensureAuthenticated(req, res, next) {
+// function ensureAuthenticated(req, res, next) {
 
-  if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login')
-}
-
-app.use(session(
-  {
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true
-  }
-));
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-passport.use(new LocalStrategy(
-
-  function(username, password, done) {
-
-    db.user.findOne({ where: {username: username} }
-
-    ).then(function(user) {
-
-      if (!user) {
-
-        return done(null, false, { message: 'Unknown username.' });
-      }
-
-      var match = false;
-
-      if(getHash(password) === user.password) {
-
-        match = true;
-      }
-
-      if (!match) {
-
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-
-      return done(null, user);
-    });
-  }
-));
-
-app.use(function(req,res,next) {
-
-  app.locals.user = req.user;
-
-  next();
-});
+//   if (req.isAuthenticated()) { return next(); }
+//   res.redirect('/login')
+// }
 
 mongoose.connect('mongodb://localhost/angular-bookmarker');
 
 app.use(express.static('./public'));
 
-<<<<<<< HEAD
-app.post('/login',
-  passport.authenticate('local', { successRedirect: '/',
-                                   failureRedirect: '/login'})
-);
+app.use('/api', routes);
 
-app.get('/logout', function(req, res){
+// app.use(session(
+//   {
+//     secret: 'keyboard cat',
+//     resave: false,
+//     saveUninitialized: true
+//   }
+// ));
 
-  req.logout();
-  res.redirect('/');
-});
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
 
-app.post('/createUser', function(req, res) {
+// app.use(passport.initialize());
+// app.use(passport.session());
 
-  db.user.findAll({
+// passport.use(new LocalStrategy(
 
-    where: {
+  // function(username, password, done) {
 
-      username: req.params.username
-    }
-  }).then(function(user) {
+  //   db.user.findOne({ where: {username: username} }
 
-    if(user.length < 1) {
+  //   ).then(function(user) {
 
-      var hashed_password = getHash(req.body.password);
+  //     if (!user) {
 
-      db.user.create({
+  //       return done(null, false, { message: 'Unknown username.' });
+  //     }
 
-        username: req.body.username,
-        password: hashed_password
+  //     var match = false;
 
-      }).then(function() {
+  //     if(getHash(password) === user.password) {
 
-        db.image.findAll()
-          .then(function(images) {
+  //       match = true;
+  //     }
 
-            res.render("index", {
+  //     if (!match) {
 
-              images: images
-            }
-          );
-        });
-      });
+  //       return done(null, false, { message: 'Incorrect password.' });
+  //     }
 
-    } else {
+  //     return done(null, user);
+  //   });
+  // }
+// ));
 
-      res.send('Username is already taken.')
-    }
-  });
-});
+// app.use(function(req,res,next) {
 
-app.get('/linkItems', function(req,res) {
+//   app.locals.user = req.user;
 
-});
-
-app.get('/linkItems/:linkItem_id', function(req,res) {
-
-});
-
-app.get('/comments', function(req,res) {
-
-});
-
-// app.get('/comments/:linkItem_id', function(req,res) {
-
+//   next();
 // });
 
-// app.get('/comments/:user_id', function(req,res) {
+// app.post('/login',
+//   passport.authenticate('local', { successRedirect: '/',
+//                                    failureRedirect: '/login'})
+// );
 
+// app.get('/logout', function(req, res){
+
+//   req.logout();
+//   res.redirect('/');
 // });
 
-app.post('/linkItems', function(req,res) {
+// app.post('/createUser', function(req, res) {
 
-});
+  // db.user.findAll({
 
-app.post('/comments', function(req,res) {
+  //   where: {
 
-});
+  //     username: req.params.username
+  //   }
+  // }).then(function(user) {
 
-app.put('/linkItems/:linkItem_id', function(res,req) {
+  //   if(user.length < 1) {
 
-});
+  //     var hashed_password = getHash(req.body.password);
 
-app.put('/comments/:comment_id' function(res,req) {
+  //     db.user.create({
 
-});
+  //       username: req.body.username,
+  //       password: hashed_password
 
-app.delete('linkItems/:linkItem_id', function(res,req) {
+  //     }).then(function() {
 
-});
+  //       db.image.findAll()
+  //         .then(function(images) {
 
-app.delete('comments/:comment_id', function(res,req) {
+  //           res.render("index", {
 
-});
+  //             images: images
+  //           }
+  //         );
+  //       });
+  //     });
+
+  //   } else {
+
+  //     res.send('Username is already taken.')
+  //   }
+  // });
+// });
 
 // app.get('*', function(req,res){
 //   res.sendFile('./public/index.html',
