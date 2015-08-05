@@ -78,6 +78,8 @@ router.post('/linkItems', function(req,res) {
     private: private
   };
 
+  console.log(linkItem);
+
   var newLinkItem = new LinkItem(linkItem);
   newLinkItem.save(function(error) {
 
