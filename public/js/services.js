@@ -17,10 +17,19 @@
 
     }
 
-    this.addLink = function(input){
+    this.addLink = function(input,callback){
       console.log('adding link',input)
       //currentty working here
-      // $http.post('http://localhost:3000/api/linkItems',)
+      $http.post('http://localhost:3000/api/linkItems',{
+        title: "",
+        url: input,
+        user_id: "55c1909eff41aa7cbde0096f"
+      }).then(function(res){
+        callback(res)
+      }, function(res){
+        console.log('error',res)
+      })
+
     }
 
   };
