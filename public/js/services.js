@@ -2,11 +2,24 @@
 
 (function() {
 
-  function LinkService() {
+  function LinkService($http) {
+
+    this.getLinksByTag = function(tag){
+
+    }
+
+    this.getAllLinks = function(){
+      return  $http.get('http://localhost:3000/api/linkItems');
+
+    }
+
+    this.getLinkById = function(){
+
+    }
 
   };
 
-  angular.module('myApp').service('LinkService',[LinkService]);
+  angular.module('myApp').service('LinkService',['$http',LinkService]);
 
   function CommentService() {
 

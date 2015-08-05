@@ -68,13 +68,13 @@
     </div>
     <div class="link_list_content">
 
-      <div class="list-body-container">
+      <div class="list-body-container" ng-repeat="link in allLinks.data">
         <div class="link-house">
           <div class="link-title">
-          {{hello}}
+          {{link.title}}
           </div>
           <div class="link">
-            <a href="test">test link</a>
+            <a href="test">{{link.url}}</a>
           </div>
           <div class="link-info">
             <span class="link-comments">
