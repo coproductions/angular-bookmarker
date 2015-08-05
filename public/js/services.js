@@ -17,6 +17,12 @@
 
     }
 
+    this.addLink = function(input){
+      console.log('adding link',input)
+      //currentty working here
+      // $http.post('http://localhost:3000/api/linkItems',)
+    }
+
   };
 
   angular.module('myApp').service('LinkService',['$http',LinkService]);

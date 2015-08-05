@@ -82,14 +82,12 @@ router.post('/linkItems', function(req,res) {
 
   var newLinkItem = new LinkItem(linkItem);
   newLinkItem.save(function(error) {
-
     if(error) {
 
       console.log(error);
       throw error;
 
     } else {
-
       res.send(true);
     }
   });
