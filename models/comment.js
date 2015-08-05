@@ -4,12 +4,14 @@ var Schema = mongoose.Schema;
 var CommentSchema = new Schema({
 
   linkItem_id: {
-    linkItem_id: mongoose.Schema.Types.ObjectId,
-    index: true
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "LinkItem"
   },
   user_id: {
-    user_id: mongoose.Schema.Types.ObjectId,
-    index: true
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "User"
   },
   body: {
     type: String
@@ -19,17 +21,36 @@ var CommentSchema = new Schema({
   }
 });
 
-CommentSchema.methods.getLinkItem = function() {
+// CommentSchema.methods.getComments = function() {
 
+// };
 
-};
+// CommentSchema.methods.getComment = function() {
 
-CommentSchema.methods.getUser = function() {
+// };
 
-};
+// CommentSchema.methods.addComment = function() {
 
-var Comment = mongoose.model('Comment', CommentSchema);
+// };
+
+// CommentSchema.methods.updateComment = function() {
+
+// };
+
+// CommentSchema.methods.deleteComment = function() {
+
+// };
+
+// CommentSchema.methods.getLinkItem = function() {
+
+// };
+
+// CommentSchema.methods.getUser = function() {
+
+// };
+
+var Comment = mongoose.model("Comment", CommentSchema);
 
 module.exports = {
   Comment: Comment
-}
+};

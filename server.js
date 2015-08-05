@@ -1,4 +1,5 @@
 var express = require('express');
+<<<<<<< HEAD
 // var session = require('express-session');
 var app = express();
 // var method_override = require('method-override');
@@ -64,9 +65,17 @@ var app = express();
 
 //   next();
 // });
+=======
+var app = express();
+var mongoose = require('mongoose');
+var routes = require('./routes/routes.js');
+// var db = require('../models');
+var bodyParser = require('body-parser');
+>>>>>>> database_setup
 
 // mongoose.connect('mongodb://localhost/angular-bookmarker');
 
+<<<<<<< HEAD
 app.use(express.static('./public'));
 
 // app.post('/login',
@@ -163,6 +172,29 @@ app.use(express.static('./public'));
 
 // });
 
+=======
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function(callback) {
+  console.log('Mongo connection success!');
+});
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(express.static('./public'));
+
+// console.log(routes);
+
+app.use('/api', routes);
+
+// app.use(function(req,res,next) {
+
+//   console.log(req.url);
+//   next();
+// });
+
+>>>>>>> database_setup
 // app.get('*', function(req,res){
 //   res.sendFile('./public/index.html',
 //               {
