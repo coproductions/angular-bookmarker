@@ -13,13 +13,17 @@ angular.module('myApp')
       $scope.hello = 'goodbye';
 
       LinkService.getAllLinks().then(function(response){
-        console.log(response);
         $scope.allLinks = response;
       })
 
       $scope.addLink = function(){
         var newLink = $('#url-input').val()
-        LinkService.addLink(newLink)
+       LinkService.addLink(newLink, function(response){
+        $scope.allLinks.data.push(response.data);
+       });
+
+
+
       }
     }
     ])
