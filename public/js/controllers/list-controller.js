@@ -17,5 +17,9 @@ angular.module('myApp')
         $scope.allLinks = response;
       })
 
+      $scope.addLink = function(){
+        var newLink = $('#url-input').val()
+        LinkService.addLink(newLink)
+      }
     }
     ])
