@@ -6,12 +6,14 @@ var LinkItemSchema = new Schema({
     type: String
   },
   url: {
-    type: String
+    type: String,
+    required: true
   },
   user_id: {
 
     type: mongoose.Schema.Types.ObjectId,
-    index: true;
+    required: true,
+    ref: 'User'
   },
   rating: {
     type: Number
@@ -39,13 +41,28 @@ var LinkItemSchema = new Schema({
   }
 });
 
-LinkItemSchema.methods.getComments = function() {
+// LinkItemSchema.methods.getLinkItem = function() {
 
+// };
 
-};
+// LinkItemSchema.methods.getComments = function() {
+
+// };
+
+// LinkItemSchema.methods.addLinkItem = function() {
+
+// };
+
+// LinkItemSchema.methods.updateLinkItem = function() {
+
+// };
+
+// LinkItemSchema.methods.deleteLinkItem = function() {
+
+// };
 
 var LinkItem = mongoose.model('LinkItem', LinkItemSchema);
 
 module.exports = {
   LinkItem: LinkItem
-}
+};
