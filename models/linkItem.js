@@ -57,7 +57,7 @@ LinkItemSchema.statics.findSorted = function(field, order, callback) {
 
   } else {
 
-    throw new Error("Valid orders are 'asc' and 'dsc'");
+    throw new Error("Valid sort orders are 'asc' and 'dsc'");
   }
 
   return LinkItem.find().sort(sortString).exec(callback);
