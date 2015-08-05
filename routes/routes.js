@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express');
 var router = express.Router();
 // var app = express();
@@ -64,7 +66,7 @@ router.post('/linkItems', function(req,res) {
   var last_visited_at = Date.now();
   var visit_count = 1;
   var tags = req.body.tags;
-  var private = req.body.private;
+  var privateFlag = req.body.private;
 
   var linkItem = {
 
@@ -77,18 +79,18 @@ router.post('/linkItems', function(req,res) {
     last_visited_at: last_visited_at,
     visit_count: visit_count,
     tags: tags,
-    private: private
+    private: privateFlag
   };
 
   var newLinkItem = new LinkItem(linkItem);
-  newLinkItem.save(function(error) {
+  newLinkItem.save(function(error, linkItem) {
     if(error) {
 
       console.log(error);
       throw error;
 
     } else {
-      res.send(true);
+      res.json(linkItem);
     }
   });
 });
@@ -156,7 +158,7 @@ router.put('/linkItems/:id', function(req,res) {
   );
 
   var newLinkItem = new LinkItem(req.body.linkItem);
-  newLinkItem.save(function(error) {
+  newLinkItem.save(function(error, linkItem) {
 
     if(error) {
 
@@ -165,7 +167,7 @@ router.put('/linkItems/:id', function(req,res) {
 
     } else {
 
-      res.send(true);
+      res.json(linkItem);
     }
   });
 });
@@ -239,7 +241,7 @@ router.post('/comments', function(req,res) {
   };
 
   var newComment = new Comment(comment);
-  newComment.save(function(error) {
+  newComment.save(function(error, comment) {
 
     if(error) {
 
@@ -248,7 +250,7 @@ router.post('/comments', function(req,res) {
 
     } else {
 
-      res.send(true);
+      res.json(comment);
     }
   });
 });
@@ -279,7 +281,7 @@ router.put('/comments/:id', function(req,res) {
   );
 
   var newComment = new Comment(req.body.comment);
-  newComment.save(function(error) {
+  newComment.save(function(error, comment) {
 
     if(error) {
 
@@ -288,7 +290,7 @@ router.put('/comments/:id', function(req,res) {
 
     } else {
 
-      res.send(true);
+      res.json(comment);
     }
   });
 });
@@ -362,7 +364,7 @@ router.post('/users', function(req,res) {
   };
 
   var newUser = new User(user);
-  newUser.save(function(error) {
+  newUser.save(function(error, user) {
 
     if(error) {
 
@@ -371,7 +373,7 @@ router.post('/users', function(req,res) {
 
     } else {
 
-      res.send(true);
+      res.json(user);
     }
   });
 });
@@ -417,7 +419,7 @@ router.put('/users/:id', function(req,res) {
   );
 
   var newLinkItem = new LinkItem(req.body.linkItem);
-  newLinkItem.save(function(error) {
+  newLinkItem.save(function(error, user) {
 
     if(error) {
 
@@ -426,7 +428,7 @@ router.put('/users/:id', function(req,res) {
 
     } else {
 
-      res.send(true);
+      res.json(user);
     }
   });
 });
