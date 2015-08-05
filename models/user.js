@@ -9,13 +9,11 @@ var UserSchema = new Schema({
   password: {
     type: String
   },
-  name: {
-    firstName: {
-      type: String
-    },
-    lastName: {
-      type: String
-    }
+  firstName: {
+    type: String
+  },
+  lastName: {
+    type:String
   }
 });
 
@@ -32,4 +30,4 @@ var User = mongoose.model('User', UserSchema);
 
 module.exports = {
   User: User
-}
+};

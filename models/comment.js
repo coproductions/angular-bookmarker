@@ -4,12 +4,14 @@ var Schema = mongoose.Schema;
 var CommentSchema = new Schema({
 
   linkItem_id: {
-    linkItem_id: mongoose.Schema.Types.ObjectId,
-    index: true
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "LinkItem"
   },
   user_id: {
-    user_id: mongoose.Schema.Types.ObjectId,
-    index: true
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "User"
   },
   body: {
     type: String
@@ -47,8 +49,8 @@ var CommentSchema = new Schema({
 
 // };
 
-var Comment = mongoose.model('Comment', CommentSchema);
+var Comment = mongoose.model("Comment", CommentSchema);
 
 module.exports = {
   Comment: Comment
-}
+};

@@ -6,12 +6,14 @@ var LinkItemSchema = new Schema({
     type: String
   },
   url: {
-    type: String
+    type: String,
+    required: true
   },
   user_id: {
 
     type: mongoose.Schema.Types.ObjectId,
-    index: true;
+    required: true,
+    ref: 'User'
   },
   rating: {
     type: Number
@@ -63,4 +65,4 @@ var LinkItem = mongoose.model('LinkItem', LinkItemSchema);
 
 module.exports = {
   LinkItem: LinkItem
-}
+};
