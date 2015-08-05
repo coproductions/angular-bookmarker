@@ -21,6 +21,7 @@ router.get('/linkItems', function(req,res) {
 
     if(error) {
 
+      console.log(error);
       throw error;
 
     } else {
@@ -41,6 +42,7 @@ router.get('/linkItems/:id', function(req,res) {
 
       if(error) {
 
+        console.log(error);
         throw error;
 
       } else {
@@ -78,8 +80,6 @@ router.post('/linkItems', function(req,res) {
     private: private
   };
 
-  console.log(linkItem);
-
   var newLinkItem = new LinkItem(linkItem);
   newLinkItem.save(function(error) {
     if(error) {
@@ -90,28 +90,76 @@ router.post('/linkItems', function(req,res) {
       res.send(true);
     }
   });
-
-  // var newItem = new LinkItem(req.body.linkItem);
-  // newItem.save(function(error) {
-
-  //   if(error) {
-
-  //     throw error;
-
-  //   } else {
-
-  //     res.send(true);
-  //   }
-  // });
 });
 
 router.put('/linkItems/:id', function(req,res) {
 
-  var newItem = new LinkItem(req.body.linkItem);
-  newItem.save(function(error) {
+  var updatedLinkItem = {};
+
+  if(req.body.title) {
+
+    updatedLinkItem.title = req.body.title;
+  }
+
+  if(req.body.url) {
+
+    updatedLinkItem.url = req.body.url;
+  }
+
+  if(req.body.rating) {
+
+    updatedLinkItem.rating = req.body.rating;
+  }
+
+  updatedLinkItem.updated_at = Date.now();
+
+  if(req.body.last_visited_at) {
+
+    updatedLinkItem.last_visited_at = req.body.last_visited_at;
+  }
+
+  if(req.body.visit_count) {
+
+    updatedLinkItem.visit_count = req.body.visit_count;
+  }
+
+  if(req.body.tags) {
+
+    updatedLinkItem.tags = req.body.tags;
+  }
+
+  if(req.body.private) {
+
+    updatedLinkItem.private = req.body.private;
+  }
+
+  // if(req.body.body) {
+
+  //   updatedLinkItem.body = req.body.body;
+  // }
+
+  LinkItem.findByIdAndUpdate(req.params.id, {
+
+    $set: updatedLinkItem
+    },
+    function(error, linkItem) {
+
+      if(error) {
+
+        console.log(error);
+        throw error;
+      }
+
+      res.send(linkItem);
+    }
+  );
+
+  var newLinkItem = new LinkItem(req.body.linkItem);
+  newLinkItem.save(function(error) {
 
     if(error) {
 
+      console.log(error);
       throw error;
 
     } else {
@@ -123,28 +171,18 @@ router.put('/linkItems/:id', function(req,res) {
 
 router.delete('/linkItems/:id', function(req,res) {
 
-  var item = findOne({
+  LinkItem.findByIdAndRemove(req.params.id, function(error) {
 
-    _id: req.params.id
+    if(error) {
+
+      console.log(error);
+      throw error;
+
+    } else {
+
+      res.send(true);
+    }
   });
-
-  if(item) {
-
-    item.remove(function(error) {
-
-      if(error) {
-
-        throw error;
-
-      } else {
-
-        res.send(true);
-      }
-    });
-  } else {
-
-    res.send(false);
-  }
 });
 
 router.get('/comments', function(req,res) {
@@ -153,6 +191,7 @@ router.get('/comments', function(req,res) {
 
     if(error) {
 
+      console.log(error);
       throw error;
 
     } else {
@@ -173,6 +212,7 @@ router.get('/comments/:id', function(req,res) {
 
       if(error) {
 
+        console.log(error);
         throw error;
 
       } else {
@@ -202,6 +242,7 @@ router.post('/comments', function(req,res) {
 
     if(error) {
 
+      console.log(error);
       throw error;
 
     } else {
@@ -213,11 +254,35 @@ router.post('/comments', function(req,res) {
 
 router.put('/comments/:id', function(req,res) {
 
+  var updatedComment = {};
+
+  if(req.body.body) {
+
+    updatedComment.body = req.body.body;
+  }
+
+  Comment.findByIdAndUpdate(req.params.id, {
+
+    $set: updatedComment
+    },
+    function(error, comment) {
+
+      if(error) {
+
+        console.log(error);
+        throw error;
+      }
+
+      res.send(comment);
+    }
+  );
+
   var newComment = new Comment(req.body.comment);
   newComment.save(function(error) {
 
     if(error) {
 
+      console.log(error);
       throw error;
 
     } else {
@@ -229,29 +294,18 @@ router.put('/comments/:id', function(req,res) {
 
 router.delete('/comments/:id', function(req,res) {
 
-  var comment = findOne({
+  Comment.findByIdAndRemove(req.params.id, function(error) {
 
-    _id: req.params.id
+    if(error) {
+
+      console.log(error);
+      throw error;
+
+    } else {
+
+      res.send(true);
+    }
   });
-
-  if(comment) {
-
-    comment.remove(function(error) {
-
-      if(error) {
-
-        throw error;
-
-      } else {
-
-        res.send(true);
-      }
-    });
-
-  } else {
-
-    res.send(false);
-  }
 });
 
 router.get('/users', function(req,res) {
@@ -260,6 +314,7 @@ router.get('/users', function(req,res) {
 
     if(error) {
 
+      console.log(error);
       throw error;
 
     } else {
@@ -280,6 +335,7 @@ router.get('/users/:id', function(req,res) {
 
       if(error) {
 
+        console.log(error);
         throw error;
 
       } else {
@@ -309,6 +365,7 @@ router.post('/users', function(req,res) {
 
     if(error) {
 
+      console.log(error);
       throw error;
 
     } else {
@@ -320,11 +377,50 @@ router.post('/users', function(req,res) {
 
 router.put('/users/:id', function(req,res) {
 
-  var newUser = new User(req.body.user);
-  newUser.save(function(error) {
+  var updatedUser = {};
+
+  if(req.body.email) {
+
+    updatedUser.email = req.body.email;
+  }
+
+  if(req.body.password) {
+
+    updatedUser.password = req.body.password;
+  }
+
+  if(req.body.firstName) {
+
+    updatedUser.firstName = req.body.firstName;
+  }
+
+  if(req.body.lastName) {
+
+    updatedUser.lastName = req.body.lastName;
+  }
+
+  User.findByIdAndUpdate(req.params.id, {
+
+    $set: updatedUser
+    },
+    function(error, user) {
+
+      if(error) {
+
+        console.log(error);
+        throw error;
+      }
+
+      res.send(user);
+    }
+  );
+
+  var newLinkItem = new LinkItem(req.body.linkItem);
+  newLinkItem.save(function(error) {
 
     if(error) {
 
+      console.log(error);
       throw error;
 
     } else {
@@ -336,29 +432,18 @@ router.put('/users/:id', function(req,res) {
 
 router.delete('/users/:id', function(req,res) {
 
-  var user = findOne({
+  User.findByIdAndRemove(req.params.id, function(error) {
 
-    _id: req.params.id
+    if(error) {
+
+      console.log(error);
+      throw error;
+
+    } else {
+
+      res.send(true);
+    }
   });
-
-  if(user) {
-
-    user.remove(function(error) {
-
-      if(error) {
-
-        throw error;
-
-      } else {
-
-        res.send(true);
-      }
-    });
-
-  } else {
-
-    res.send(false);
-  }
 });
 
 module.exports = router;
