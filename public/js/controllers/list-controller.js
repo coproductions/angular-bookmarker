@@ -9,6 +9,7 @@ angular.module('myApp')
         $(document).foundation();
 
       })
+      $scope.hello = 'goodbye';
 
     }
     ])
