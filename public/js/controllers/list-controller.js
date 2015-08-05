@@ -5,6 +5,11 @@ angular.module('myApp')
     '$scope',
 
     function($scope){
+      angular.element(document).ready(function(){
+        $(document).foundation();
+
+      })
+      $scope.hello = 'goodbye';
 
     }
     ])

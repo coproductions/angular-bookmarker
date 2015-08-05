@@ -14,7 +14,8 @@ angular.module('myApp',[
 
   $routeProvider
       .when('/', {
-        templateUrl : 'views/index.html'
+        templateUrl : 'views/list.html',
+        controller : 'listController'
       })
       .when('/list', {
         templateUrl : 'views/list.html',
