@@ -43,6 +43,26 @@ var LinkItemSchema = new Schema({
   }
 });
 
+LinkItemSchema.statics.findSorted = function(field, order, callback) {
+
+  var sortString = field;
+
+  if(order === "asc") {
+
+    sortString = "+" + sortString;
+
+  } else if(order === "dsc") {
+
+    sortString = "-" + sortString;
+
+  } else {
+
+    throw new Error("Valid orders are 'asc' and 'dsc'");
+  }
+
+  return LinkItem.find().sort(sortString).exec(callback);
+};
+
 // LinkItemSchema.methods.getLinkItem = function() {
 
 // };
