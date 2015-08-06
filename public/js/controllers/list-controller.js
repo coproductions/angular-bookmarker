@@ -37,13 +37,5 @@ angular.module('myApp')
         })
       }
 
-
-
-      $scope.test = function(){
-        console.log('test click positive');
-       }
-
-       $scope.testVar = 'test variable';
-
     }
     ])

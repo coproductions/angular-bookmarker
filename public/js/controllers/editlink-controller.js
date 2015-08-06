@@ -36,23 +36,19 @@ angular.module('myApp')
 
        $scope.addComment = function(event){
         if(event.keyCode === 13){
-          console.log('adding comment:',$scope.commentInput)
           var newComment = {
             linkItem_id : $routeParams.linkId,
             user_id : "55c1909eff41aa7cbde0096f",
             body: $scope.commentInput
           }
           CommentService.addComment(newComment,function(response){
-            console.log('the comment put response:',response)
-            $scope.allComments.push(response.data)
+            $scope.allComments.push(response.data);
+            $scope.commentInput = '';
           })
         }
        }
 
-       $scope.test = function(){
-        console.log('test click positive');
-       }
-       $scope.testVar = 'test variable';
+
 
 
       $('.edit-link-slider-container').mouseup(function(){
