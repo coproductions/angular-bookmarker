@@ -212,8 +212,6 @@ router.put('/linkItems/:id', function(req,res) {
 
         var tagPushes = JSON.parse(req.body.tags);
 
-        console.log(typeof tagPushes);
-
         LinkItem.findByIdAndUpdate(req.params.id, {
 
           $pushAll: tagPushes
@@ -241,20 +239,34 @@ router.put('/linkItems/:id', function(req,res) {
       }
     }
   );
+});
 
-  // var newLinkItem = new LinkItem(req.body.linkItem);
-  // newLinkItem.save(function(error, linkItem) {
+router.delete('/linkItems/:id/tags', function(req,res) {
 
-  //   if(error) {
+  if(!req.body.tags) {
 
-  //     console.log(error);
-  //     res.send(500,error);
+    res.send(400,"No tags specified for deletion");
+    return;
+  }
 
-  //   } else {
+  var tagPulls = JSON.parse(req.body.tags);
 
-  //     res.json(linkItem);
-  //   }
-  // });
+  LinkItem.findByIdAndUpdate(req.params.id, {
+
+    $pullAll: tagPulls
+  },
+  function(error, linkItems) {
+
+    if(error) {
+
+      console.log(error);
+      res.send(500, error);
+
+    } else {
+
+      res.send(linkItems);
+    }
+  });
 });
 
 router.delete('/linkItems/:id', function(req,res) {
