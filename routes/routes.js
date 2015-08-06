@@ -16,7 +16,27 @@ var User = require('../models/user').User;
 
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: false }));
-//
+
+router.post('/authenticate', function(req,res) {
+
+  User.findOne({email:req.body.email, password: req.body.password}, function(error, user) {
+
+    if(error) {
+
+      console.log(error);
+      throw error;
+
+    } else if(user) {
+
+      var token = jwt.sign(user, secret, { expiresInMinutes: 60*5 });
+      res.json({token:token});
+
+    } else {
+
+      res.send(401,'Invalid email/password');
+    }
+  });
+})
 
 router.get('/linkItems', function(req,res) {
 

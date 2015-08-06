@@ -5,6 +5,8 @@ var app = express();
 var mongoose = require('mongoose');
 var routes = require('./routes/routes.js');
 var bodyParser = require('body-parser');
+var expressJwt = require('express-jwt');
+var jwt = require('jsonwebtoken');
 
 mongoose.connect('mongodb://localhost/angular-bookmarker');
 
@@ -21,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static('./public'));
 
+app.use('/api', expressJwt({secret:'test'}));
 app.use('/api', routes);
 
 // app.use(function(req,res,next) {
