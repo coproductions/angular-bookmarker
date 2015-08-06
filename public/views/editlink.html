@@ -32,7 +32,11 @@
 
         </div>
         <div class="edit-link-comments" ng-repeat="comment in allComments">
-          <div>{{comment.body}}</div>
+          <div>
+            <span class="comment-body">{{comment.body}}</span>
+            <span class="comment-added">{{comment.created_at}}</span>
+
+          </div>
         </div>
         <div class="edit-link-input-container">
 

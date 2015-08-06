@@ -5,7 +5,7 @@ angular.module('myApp')
     '$scope',
     'LinkService',
 
-    function($scope,LinkService){
+    function($scope, LinkService){
       angular.element(document).ready(function(){
         $(document).foundation();
 
@@ -42,6 +42,14 @@ angular.module('myApp')
         $scope.allLinks.data = $scope.allLinks.data.filter(function(link){
           return link._id !== id;
         })
+      }
+
+      $scope.nrOfComments = function(id){
+        LinkService.getComments(id).then(function(res){
+
+          console.log('comment nr:',res.data.length)
+          $scope.commentNr = res.data.length;
+        });
 
       }
 

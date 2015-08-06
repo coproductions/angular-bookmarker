@@ -35,6 +35,7 @@
       $http.post('http://localhost:3000/api/linkItems',{
         title: "",
         url: input,
+        rating: 50,
         user_id: "55c1909eff41aa7cbde0096f"
       }).then(function(res){
         callback(res)

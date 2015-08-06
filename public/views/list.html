@@ -89,11 +89,11 @@
               <span>
               lastVisited:{{link.last_visited_at}}
             </span>
-            <span class="link-comments">
-              comments
+            <span ng-mouseover="nrOfComments(link._id)" class="link-comments">
+              comments:{{commentNr}}
             </span>
             <span class="link-rating">
-              rating
+              rating:{{link.rating}}
             </span>
             <span class="link-tag label">
               tag1
