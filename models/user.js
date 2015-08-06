@@ -19,10 +19,10 @@ var UserSchema = new Schema({
   }
 });
 
-UserSchema.methods.getLinkItems = function() {
+// UserSchema.methods.getLinkItems = function() {
 
 
-};
+// };
 
 // UserSchema.methods.getComments = function() {
 
