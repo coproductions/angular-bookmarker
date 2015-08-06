@@ -331,25 +331,7 @@ router.get('/comments/:id', function(req,res) {
 
 router.post('/comments', function(req,res) {
 
-  var linkItem_id = req.body.linkItem_id;
-  var user_id = req.body.user_id;
-  var body = req.body.body;
-  var created_at = Date.now();
-  var firstName = req.body.firstName;
-  var lastName = req.body.lastName;
-
-  var comment = {
-
-    linkItem_id: linkItem_id,
-    user_id: user_id,
-    body: body,
-    created_at: created_at,
-    firstName: firstName,
-    lastName: lastName
-  };
-
-  var newComment = new Comment(comment);
-  newComment.save(function(error, comment) {
+  var getUser = function(error, user) {
 
     if(error) {
 
@@ -358,9 +340,46 @@ router.post('/comments', function(req,res) {
 
     } else {
 
-      res.json(comment);
+      var firstName = user.firstName;
+      var lastName = user.lastName;
+
+      var comment = {
+
+        linkItem_id: linkItem_id,
+        user_id: user_id,
+        body: body,
+        created_at: created_at,
+        firstName: firstName,
+        lastName: lastName
+      };
+
+      var newComment = new Comment(comment);
+      newComment.save(function(error, comment) {
+
+        if(error) {
+
+          console.log(error);
+          res.send(500,error);
+
+        } else {
+
+          res.json(comment);
+        }
+      });
     }
-  });
+  };
+
+  var linkItem_id = req.body.linkItem_id;
+  var user_id = req.body.user_id;
+  var body = req.body.body;
+  var created_at = Date.now();
+
+  User.findOne({
+
+      _id: user_id
+    },
+    getUser
+  );
 });
 
 router.put('/comments/:id', function(req,res) {
