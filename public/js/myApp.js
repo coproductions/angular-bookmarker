@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('myApp',[
-  'ngRoute'
+  'ngRoute',
+  'angularMoment'
   ])
   .config(['$routeProvider','$locationProvider',function($routeProvider,$locationProvider){
 

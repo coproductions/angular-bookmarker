@@ -33,8 +33,9 @@
         </div>
         <div class="edit-link-comments" ng-repeat="comment in allComments">
           <div>
+            <span class="comment-firstName">{{comment.firstName}}</span>
             <span class="comment-body">{{comment.body}}</span>
-            <span class="comment-added">{{comment.created_at}}</span>
+            <span class="comment-added">{{comment.created_at | amCalendar}}</span>
 
           </div>
         </div>

@@ -5,6 +5,7 @@ angular.module('myApp')
     '$scope',
     'LinkService',
 
+
     function($scope, LinkService){
       angular.element(document).ready(function(){
         $(document).foundation();
@@ -63,6 +64,8 @@ angular.module('myApp')
         });
 
       }
+
+
 
     }
     ])

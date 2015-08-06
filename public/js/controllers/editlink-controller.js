@@ -26,6 +26,15 @@ angular.module('myApp')
           $scope.allComments = res.data;
         })
 
+      function addUsernames(commentArray){
+        commentArray.forEach(function(comment){
+          LinkService.gitLinkById(comment.user_id)
+            .then(function(res){
+              comment.username = res.data.username;
+            })
+        })
+      }
+
        $scope.saveTag = function(event){
         if(event.keyCode === 13){
           console.log('tag input: ',$scope.tagInputValue)

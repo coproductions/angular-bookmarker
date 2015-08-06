@@ -49,14 +49,12 @@
         </div>
         <div class="small-9 columns">
           <div class="row">
-            <div class="small-2 columns">
-              <a href="#" class="button postfix" ng-click="addLink(url-input)">enter</a>
-            </div>
-            <div class="small-8 columns">
-              <input type="text" placeholder="enter your url or search term here" id="url-input">
+            <div class="small-10 columns">
+              <input type="text" placeholder="enter your url here" id="url-input">
+              <input type="text" id="search-input" placeholder="serch" ng-model="searchLink">
             </div>
             <div class="small-2 columns">
-              <a href="#" class="button postfix">Go</a>
+              <a href="#" ng-click="addLink(url-input)" class="button postfix">Go</a>
             </div>
           </div>
         </div>
@@ -71,7 +69,7 @@
   <!--   <button ng-click="test()">test{{testVar}}</button> -->
     <div class="link_list_content">
 
-      <div class="list-body-container" ng-repeat="link in allLinks">
+      <div class="list-body-container" ng-repeat="link in allLinks | filter: searchLink" >
         <div class="link-house">
 
           <div class="link-title">
@@ -84,11 +82,11 @@
             <a ng-href="editlink/{{link._id}}">edit</a>
             <a ng-click="deleteLink(link._id)">delete</a>
             <span>
-              added:{{link.created_at}}
+              added:{{link.created_at | amCalendar}}
             </span>
-              <span>
+             <!--  <span>
               lastVisited:{{link.last_visited_at}}
-            </span>
+            </span> -->
             <span class="link-comments">
               comments:{{link.commentNr}}
             </span>
