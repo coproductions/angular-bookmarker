@@ -15,6 +15,14 @@ var CommentSchema = new Schema({
     required: true,
     ref: "User"
   },
+  firstName: {
+
+    type: String
+  },
+  lastName: {
+
+    type: String
+  },
   body: {
     type: String
   },

@@ -9,6 +9,7 @@
     }
 
     this.getAllLinks = function(sortBy,sortOrder){
+
       if(sortBy && sortOrder){
         return $http.get('http://localhost:3000/api/linkItems/'+sortBy +'/' + sortOrder)
       }
