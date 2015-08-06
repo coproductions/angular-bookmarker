@@ -11,12 +11,16 @@ angular.module('myApp')
         $(document).foundation();
 
       })
-      $scope.hello = 'goodbye';
 
       LinkService.getAllLinks('created_at','dsc').then(function(response){
         $scope.allLinks = response.data;
         addCommentNr($scope.allLinks);
       })
+
+      $scope.orderParam = '-created_at';
+      $scope.order = function(param){
+        $scope.orderParam = param;
+      }
 
       function addCommentNr(arrayOfLinks){
         arrayOfLinks.forEach(function(link){
@@ -34,21 +38,6 @@ angular.module('myApp')
          });
       }
 
-      $scope.sortByRating = function(){
-        console.log('sorting')
-        LinkService.getAllLinks('rating','dsc').then(function(response){
-        $scope.allLinks = response.data;
-        addCommentNr($scope.allLinks);
-        })
-      }
-
-      $scope.sortByDate = function(){
-        console.log('sorting')
-        LinkService.getAllLinks('created_at','dsc').then(function(response){
-        $scope.allLinks = response.data;
-        addCommentNr($scope.allLinks);
-        })
-      }
 
       $scope.deleteLink = function(id){
         LinkService.deleteLink(id);

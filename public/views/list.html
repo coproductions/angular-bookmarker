@@ -8,8 +8,9 @@
     <aside class="left-off-canvas-menu">
       <ul class="off-canvas-list">
         <li><label>Sort By</label></li>
-        <li class="rating"><a ng-click="sortByRating()">Rating</a></li>
-         <li class="added"><a href="#" ng-click="sortByDate()">Date Added</a></li>
+        <li class="rating"><a ng-click="order('-rating')">Rating</a></li>
+        <li class="added"><a href="#" ng-click="order('-created_at')">Date Added</a></li>
+        <li class="rating"><a ng-click="order('-commentNr')">Comments</a></li>
         <li class="has-submenu"><a href="#">TAGS</a>
             <ul class="left-submenu">
                 <li class="back"><a href="#">back</a></li>
@@ -69,7 +70,7 @@
   <!--   <button ng-click="test()">test{{testVar}}</button> -->
     <div class="link_list_content">
 
-      <div class="list-body-container" ng-repeat="link in allLinks | filter: searchLink" >
+      <div class="list-body-container" ng-repeat="link in allLinks | filter: searchLink | orderBy: orderParam " >
         <div class="link-house">
 
           <div class="link-title">
