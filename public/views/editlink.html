@@ -21,17 +21,36 @@
       </div>
       <div class="edit-link-body">
         <div class="edit-link-title-container">
+          <p>{{link.title}}</p>
+          <p>{{link.url}}</p>
+        </div>
+        <div class="edit-link-tags" ng-repeat="tag in link.tags">
+          <span class="label">{{tag}}</span>
 
         </div>
+        <div class="edit-link-comments">
+          comments go here {{link.rating}}
+        </div>
         <div class="edit-link-input-container">
-          <textarea name="link-comment-input" id="" cols="30" rows="10"></textarea>
+          <form action="">
+            <input type="text" name="link-comment-input" >
+            <input type="submit" class="button">
+
+          </form>
         </div>
         <div class="edit-link-slider-container">
-          <div class="range-slider round" data-slider>
-            <span class="range-slider-handle" role="slider" tabindex="0"></span>
-            <span class="range-slider-active-segment"></span>
-            <input type="hidden">
+          <div class="row">
+            <div class="small-10 columns">
+              <div class="range-slider round" id="slider" data-slider data-options="display_selector: #link-rating; ">
+                <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                <span class="range-slider-active-segment"></span>
+                <input type="hidden">
+              </div>
+            </div>
+           <div class="small-2 columns" >
+            <input type="number" id="link-rating" value="0" ng-model="link.rating" />
           </div>
+        </div>
         </div>
       </div>
 

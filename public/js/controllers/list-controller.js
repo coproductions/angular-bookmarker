@@ -12,15 +12,16 @@ angular.module('myApp')
       })
       $scope.hello = 'goodbye';
 
-      LinkService.getAllLinks().then(function(response){
+      LinkService.getAllLinks('created_at','dsc').then(function(response){
         $scope.allLinks = response;
       })
 
       $scope.addLink = function(){
         var newLink = $('#url-input').val()
        LinkService.addLink(newLink, function(response){
-        $scope.allLinks.data.push(response.data);
+        $scope.allLinks.data.unshift(response.data);
        });
+
 
 
 
