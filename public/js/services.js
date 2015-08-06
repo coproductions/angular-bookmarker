@@ -26,8 +26,11 @@
 
     this.updateLinkById = function(id,obj){
       $http.put('http://localhost:3000/api/linkItems/'+id , obj)
-        .then(function(res){
-          console.log('put response',res)
+        .success(function(res){
+          console.log('success: ',res)
+        })
+        .error(function(err){
+          console.log('error:',err)
         })
     }
 

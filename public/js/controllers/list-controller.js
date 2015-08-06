@@ -12,13 +12,19 @@ angular.module('myApp')
 
       })
 
-      LinkService.getAllLinks('created_at','dsc').then(function(response){
-        $scope.allLinks = response.data;
-        addCommentNr($scope.allLinks);
-      })
+      getLinks();
 
       $scope.orderParam = '-created_at';
+
+      function getLinks(){
+        LinkService.getAllLinks('created_at','dsc').then(function(response){
+          $scope.allLinks = response.data;
+          addCommentNr($scope.allLinks);
+        })
+      }
+
       $scope.order = function(param){
+        getLinks();
         $scope.orderParam = param;
       }
 

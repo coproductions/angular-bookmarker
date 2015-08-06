@@ -61,6 +61,7 @@ angular.module('myApp')
 
 
       $('.edit-link-slider-container').mouseup(function(){
+        console.log('fired mouseup')
         LinkService.updateLinkById($routeParams.linkId,{rating:$('#slider').attr('data-slider')})
       })
 
