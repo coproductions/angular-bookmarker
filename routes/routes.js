@@ -34,6 +34,39 @@ router.get('/linkItems', function(req,res) {
   });
 });
 
+router.get('/linkItems/:id/comments', function(req,res) {
+
+  LinkItem.findOne(
+    {
+      _id: req.params.id
+    },
+
+    function(error, item) {
+
+      if(error) {
+
+        console.log(error);
+        throw error;
+
+      } else {
+
+        Comment.find({linkItem_id: item._id}).sort('-created_at').exec(function(error,items) {
+
+          if(error) {
+
+            console.log(error);
+            throw error;
+
+          } else {
+
+            res.json(items);
+          }
+        });
+      }
+    }
+  );
+})
+
 router.get('/linkItems/:field/:order', function(req,res) {
 
   LinkItem.findSorted(req.params.field, req.params.order, function(error, items) {

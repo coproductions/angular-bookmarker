@@ -32,11 +32,9 @@ var LinkItemSchema = new Schema({
   visit_count: {
     type: Number
   },
-  tags: [{ //check this for syntax and logic
-    name: {
-      type: String,
-      index: true
-    }
+  tags: [{
+    type:String,
+    index:true
   }],
   private: {
     type: Boolean
