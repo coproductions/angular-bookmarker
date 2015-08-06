@@ -37,5 +37,13 @@ angular.module('myApp')
         })
       }
 
+      $scope.deleteLink = function(id){
+        LinkService.deleteLink(id);
+        $scope.allLinks.data = $scope.allLinks.data.filter(function(link){
+          return link._id !== id;
+        })
+
+      }
+
     }
     ])

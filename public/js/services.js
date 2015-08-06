@@ -31,7 +31,6 @@
     }
 
     this.addLink = function(input,callback){
-      console.log('adding link',input)
       //currentty working here
       $http.post('http://localhost:3000/api/linkItems',{
         title: "",
@@ -43,6 +42,13 @@
         console.log('error',res)
       })
 
+    }
+
+    this.deleteLink = function(id){
+      $http.delete('http://localhost:3000/api/linkItems/'+id)
+        .then(function(res){
+          console.log('deleted',res)
+        })
     }
 
     this.getComments = function(id){

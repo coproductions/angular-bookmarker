@@ -82,6 +82,7 @@
           </div>
           <div class="link-info">
             <a ng-href="editlink/{{link._id}}">edit</a>
+            <a ng-click="deleteLink(link._id)">delete</a>
             <span>
               added:{{link.created_at}}
             </span>
