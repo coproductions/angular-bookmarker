@@ -18,9 +18,10 @@ angular.module('myApp')
 
       $scope.addLink = function(){
         var newLink = $('#url-input').val()
-       LinkService.addLink(newLink, function(response){
-        $scope.allLinks.data.unshift(response.data);
-       });
+         LinkService.addLink(newLink, function(response){
+          $scope.allLinks.data.unshift(response.data);
+         });
+      }
 
       $scope.sortByRating = function(){
         console.log('sorting')
@@ -38,7 +39,11 @@ angular.module('myApp')
 
 
 
+      $scope.test = function(){
+        console.log('test click positive');
+       }
 
-      }
+       $scope.testVar = 'test variable';
+
     }
     ])

@@ -24,7 +24,6 @@ angular.module('myApp')
       LinkService.getComments($routeParams.linkId)
         .then(function(res){
           $scope.allComments = res.data;
-          console.log(res.data)
         })
 
        $scope.saveTag = function(event){
@@ -45,9 +44,15 @@ angular.module('myApp')
           }
           CommentService.addComment(newComment,function(response){
             console.log('the comment put response:',response)
+            $scope.allComments.push(response.data)
           })
         }
        }
+
+       $scope.test = function(){
+        console.log('test click positive');
+       }
+       $scope.testVar = 'test variable';
 
 
       $('.edit-link-slider-container').mouseup(function(){
