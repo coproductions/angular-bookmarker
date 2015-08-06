@@ -8,8 +8,14 @@
 
     }
 
-    this.getAllLinks = function(){
-      return  $http.get('http://localhost:3000/api/linkItems');
+    this.getAllLinks = function(sortBy,sortOrder){
+      if(sortBy && sortOrder){
+        return $http.get('http://localhost:3000/api/linkItems/'+sortBy +'/' + sortOrder)
+      }
+      else{
+
+        return  $http.get('http://localhost:3000/api/linkItems');
+      }
 
     }
 
