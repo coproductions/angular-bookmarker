@@ -22,6 +22,20 @@ angular.module('myApp')
         $scope.allLinks.data.unshift(response.data);
        });
 
+      $scope.sortByRating = function(){
+        console.log('sorting')
+        LinkService.getAllLinks('rating','dsc').then(function(response){
+        $scope.allLinks = response;
+        })
+      }
+
+      $scope.sortByDate = function(){
+        console.log('sorting')
+        LinkService.getAllLinks('created_at','dsc').then(function(response){
+        $scope.allLinks = response;
+        })
+      }
+
 
 
 

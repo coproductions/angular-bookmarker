@@ -45,13 +45,27 @@
 
     }
 
+    this.getComments = function(id){
+      return $http.get('http://localhost:3000/api/linkItems/'+id+'/comments')
+    }
+
   };
 
   angular.module('myApp').service('LinkService',['$http',LinkService]);
 
-  function CommentService() {
+  function CommentService($http) {
+
+
+    this.addComment = function(obj,callback){
+      $http.post('http://localhost:3000/api/comments',obj)
+        .then(function(res){
+          callback(res);
+        }, function(res){
+          console.log('error',res)
+        })
+    }
 
   };
 
-  angular.module('myApp').service('CommentService',[CommentService]);
+  angular.module('myApp').service('CommentService',['$http',CommentService]);
 })()
