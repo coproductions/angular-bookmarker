@@ -13,8 +13,15 @@
 
     }
 
-    this.getLinkById = function(){
+    this.getLinkById = function(id){
+       return  $http.get('http://localhost:3000/api/linkItems/'+id);
+    }
 
+    this.updateLinkById = function(id,obj){
+      $http.put('http://localhost:3000/api/linkItems/'+id , obj)
+        .then(function(res){
+          console.log('put response',res)
+        })
     }
 
     this.addLink = function(input,callback){

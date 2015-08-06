@@ -14,23 +14,23 @@ angular.module('myApp',[
 
   $routeProvider
       .when('/', {
-        templateUrl : 'views/list.html',
+        templateUrl : '/views/list.html',
         controller : 'listController'
       })
       .when('/list', {
-        templateUrl : 'views/list.html',
+        templateUrl : '/views/list.html',
         controller : 'listController'
       })
       .when('/login', {
-        templateUrl : 'views/login.html',
+        templateUrl : '/views/login.html',
         controller : 'loginController'
       })
-      .when('/editlink', {
-        templateUrl : 'views/editlink.html',
+      .when('/editlink/:linkId', {
+        templateUrl : '/views/editlink.html',
         controller : 'editlinkController'
       })
       .otherwise({
-        templateUrl : 'views/404.html'
+        templateUrl : '/views/404.html'
       })
   }])
   .run(['$rootScope',
