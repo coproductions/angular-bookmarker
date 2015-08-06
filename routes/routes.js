@@ -16,10 +16,27 @@ var User = require('../models/user').User;
 
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: false }));
+//
 
 router.get('/linkItems', function(req,res) {
 
   LinkItem.find(function(error, items) {
+
+    if(error) {
+
+      console.log(error);
+      throw error;
+
+    } else {
+
+      res.json(items);
+    }
+  });
+});
+
+router.get('/linkItems/:field/:order', function(req,res) {
+
+  LinkItem.findSorted(req.params.field, req.params.order, function(error, items) {
 
     if(error) {
 
@@ -199,6 +216,22 @@ router.get('/comments', function(req,res) {
     } else {
 
       res.json(comments);
+    }
+  });
+});
+
+router.get('/comments/:field/:order', function(req,res) {
+
+  Comment.findSorted(req.params.field, req.params.order, function(error, items) {
+
+    if(error) {
+
+      console.log(error);
+      throw error;
+
+    } else {
+
+      res.json(items);
     }
   });
 });

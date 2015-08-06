@@ -23,6 +23,26 @@ var CommentSchema = new Schema({
   }
 });
 
+CommentSchema.statics.findSorted = function(field, order, callback) {
+
+  var sortString = field;
+
+  if(order === "asc") {
+
+    sortString = "+" + sortString;
+
+  } else if(order === "dsc") {
+
+    sortString = "-" + sortString;
+
+  } else {
+
+    throw new Error("Valid sort orders are 'asc' and 'dsc'");
+  }
+
+  return Comment.find().sort(sortString).exec(callback);
+};
+
 // CommentSchema.methods.getComments = function() {
 
 // };
