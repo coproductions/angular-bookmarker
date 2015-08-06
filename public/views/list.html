@@ -71,7 +71,7 @@
   <!--   <button ng-click="test()">test{{testVar}}</button> -->
     <div class="link_list_content">
 
-      <div class="list-body-container" ng-repeat="link in allLinks.data">
+      <div class="list-body-container" ng-repeat="link in allLinks">
         <div class="link-house">
 
           <div class="link-title">
@@ -89,8 +89,8 @@
               <span>
               lastVisited:{{link.last_visited_at}}
             </span>
-            <span ng-mouseover="nrOfComments(link._id)" class="link-comments">
-              comments:{{commentNr}}
+            <span class="link-comments">
+              comments:{{link.commentNr}}
             </span>
             <span class="link-rating">
               rating:{{link.rating}}
