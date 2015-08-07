@@ -94,9 +94,12 @@
             <span class="link-rating">
               rating:{{link.rating}}
             </span>
-            <span class="link-tag label">
-              tag1
-            </span>
+            <div class="tag-house"   ng-repeat="tag in link.tags">
+              <span class="link-tag label">
+                {{tag}}
+              </span>
+
+            </div>
           </div>
         </div>
       </div>
