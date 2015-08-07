@@ -60,6 +60,20 @@
       return $http.get('http://localhost:3000/api/linkItems/'+id+'/comments')
     }
 
+    this.addTag = function(id, tag){
+      var tagObj = {"tags":[tag]};
+      tagObj = JSON.stringify(tagObj);
+      // tagObj = JSON.parse(tagObj);
+      console.log('tagobj', id ,tagObj)
+      $http.put('http://localhost:3000/api/linkItems/'+id , tagObj)
+        .success(function(res){
+          console.log('put tag',res);
+        })
+        .error(function(err){
+          console.log('error:',err)
+        })
+    }
+
   };
 
   angular.module('myApp').service('LinkService',['$http',LinkService]);

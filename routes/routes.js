@@ -208,9 +208,9 @@ router.put('/linkItems/:id', function(req,res) {
 
       } else if(req.body.tags) {
 
-        // console.log(JSON.parse(req.body.tags));
+        console.log('tag ob',req.body.tags);
 
-        var tagPushes = JSON.parse(req.body.tags);
+        var tagPushes = { "tags":req.body.tags};
 
         LinkItem.findByIdAndUpdate(req.params.id, {
 

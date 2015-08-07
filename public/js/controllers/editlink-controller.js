@@ -35,13 +35,13 @@ angular.module('myApp')
         })
       }
 
-       $scope.saveTag = function(event){
-        if(event.keyCode === 13){
-          console.log('tag input: ',$scope.tagInputValue)
-          // LinkService.updateLinkById($routeParams.linkId,{tag:})
-        }
+       // $scope.saveTag = function(event){
+       //  if(event.keyCode === 13){
+       //    console.log('tag input: ',$scope.tagInputValue)
+       //    // LinkService.updateLinkById($routeParams.linkId,{tag:})
+       //  }
 
-       }
+       // }
 
        $scope.addComment = function(event){
         if(event.keyCode === 13){
@@ -55,6 +55,16 @@ angular.module('myApp')
             $scope.commentInput = '';
           })
         }
+       }
+
+       $scope.saveTag = function(){
+         if(event.keyCode === 13){
+          var newTag = $scope.tagInputValue;
+          console.log('new tag',newTag)
+          LinkService.addTag($routeParams.linkId, newTag);
+          $scope.link.tags.push(newTag);
+          $scope.tagInputValue = '';
+         }
        }
 
 
