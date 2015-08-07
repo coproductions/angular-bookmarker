@@ -5,6 +5,9 @@
       <ul class="off-canvas-list">
         <li class="back"><a ng-href="list">back</a></li>
         <li><label>tags</label></li>
+        <li>
+          <input id="tagInput" type="text" ng-model="tagInputValue" ng-keyup="saveTag($event)">
+        </li>
 
           <li><a href="#">tag 1</a></li>
         </li>
@@ -28,15 +31,18 @@
           <span class="label">{{tag}}</span>
 
         </div>
-        <div class="edit-link-comments">
-          comments go here {{link.rating}}
+        <div class="edit-link-comments" ng-repeat="comment in allComments">
+          <div>
+            <span class="comment-firstName">{{comment.firstName}}</span>
+            <span class="comment-body">{{comment.body}}</span>
+            <span class="comment-added">{{comment.created_at | amCalendar}}</span>
+
+          </div>
         </div>
         <div class="edit-link-input-container">
-          <form action="">
-            <input type="text" name="link-comment-input" >
-            <input type="submit" class="button">
 
-          </form>
+          <input type="text" name="link-comment-input" ng-model="commentInput" ng-keyup="addComment($event)">
+
         </div>
         <div class="edit-link-slider-container">
           <div class="row">

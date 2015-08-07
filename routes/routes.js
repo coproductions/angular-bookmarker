@@ -45,7 +45,7 @@ router.get('/linkItems', function(req,res) {
     if(error) {
 
       console.log(error);
-      throw error;
+      res.send(500,error);
 
     } else {
 
@@ -66,22 +66,26 @@ router.get('/linkItems/:id/comments', function(req,res) {
       if(error) {
 
         console.log(error);
-        throw error;
+        res.send(500,error);
 
-      } else {
+      } else if(item) {
 
         Comment.find({linkItem_id: item._id}).sort('-created_at').exec(function(error,items) {
 
           if(error) {
 
             console.log(error);
-            throw error;
+            res.send(500,error);
 
           } else {
 
             res.json(items);
           }
         });
+
+      } else {
+
+        res.send(400,"No document was found for the given id.");
       }
     }
   );
@@ -94,7 +98,7 @@ router.get('/linkItems/:field/:order', function(req,res) {
     if(error) {
 
       console.log(error);
-      throw error;
+      res.send(500,error);
 
     } else {
 
@@ -115,7 +119,7 @@ router.get('/linkItems/:id', function(req,res) {
       if(error) {
 
         console.log(error);
-        throw error;
+        res.send(500,error);
 
       } else {
 
@@ -156,7 +160,8 @@ router.post('/linkItems', function(req,res) {
   newLinkItem.save(function(error, linkItem) {
     if(error) {
 
-      throw error;
+      console.log(error);
+      res.send(500,error);
 
     } else {
       res.json(linkItem);
@@ -195,10 +200,10 @@ router.put('/linkItems/:id', function(req,res) {
     updatedLinkItem.visit_count = req.body.visit_count;
   }
 
-  if(req.body.tags) {
+  // if(req.body.tags) {
 
-    updatedLinkItem.tags = req.body.tags;
-  }
+  //   updatedLinkItem.tags = req.body.tags;
+  // }
 
   if(req.body.private) {
 
@@ -219,24 +224,68 @@ router.put('/linkItems/:id', function(req,res) {
       if(error) {
 
         console.log(error);
-        throw error;
-      }
+        res.send(500,error);
+        return;
 
-      res.send(linkItem);
+      } else if(req.body.tags) {
+
+        console.log(req.body.tags);
+
+        var tagPushes = {"tags": req.body.tags};
+
+        LinkItem.findByIdAndUpdate(req.params.id, {
+
+          $pushAll: tagPushes
+
+        },
+        function(error, linkItems) {
+
+          if(error) {
+
+            console.log(error);
+            res.send(500, error);
+            return;
+
+          } else {
+
+            res.send(linkItems);
+            return;
+          }
+        });
+
+      } else if(linkItem) {
+
+        res.send(linkItem);
+        return;
+      }
     }
   );
+});
 
-  var newLinkItem = new LinkItem(req.body.linkItem);
-  newLinkItem.save(function(error, linkItem) {
+router.delete('/linkItems/:id/tags', function(req,res) {
+
+  if(!req.body.tags) {
+
+    res.send(400,"No tags specified for deletion");
+    return;
+  }
+
+  var tagPulls = JSON.parse(req.body.tags);
+
+  LinkItem.findByIdAndUpdate(req.params.id, {
+
+    $pullAll: tagPulls
+  },
+  function(error, linkItems) {
 
     if(error) {
 
       console.log(error);
-      throw error;
+      res.send(500, error);
 
     } else {
 
-      res.json(linkItem);
+      res.send(linkItems);
     }
   });
 });
@@ -248,7 +297,7 @@ router.delete('/linkItems/:id', function(req,res) {
     if(error) {
 
       console.log(error);
-      throw error;
+      res.send(500,error);
 
     } else {
 
@@ -264,7 +313,7 @@ router.get('/comments', function(req,res) {
     if(error) {
 
       console.log(error);
-      throw error;
+      res.send(500,error);
 
     } else {
 
@@ -280,7 +329,7 @@ router.get('/comments/:field/:order', function(req,res) {
     if(error) {
 
       console.log(error);
-      throw error;
+      res.send(500,error);
 
     } else {
 
@@ -301,7 +350,7 @@ router.get('/comments/:id', function(req,res) {
       if(error) {
 
         console.log(error);
-        throw error;
+        res.send(500,error);
 
       } else {
 
@@ -313,31 +362,55 @@ router.get('/comments/:id', function(req,res) {
 
 router.post('/comments', function(req,res) {
 
+  var getUser = function(error, user) {
+
+    if(error) {
+
+      console.log(error);
+      res.send(500,error);
+
+    } else {
+
+      var firstName = user.firstName;
+      var lastName = user.lastName;
+
+      var comment = {
+
+        linkItem_id: linkItem_id,
+        user_id: user_id,
+        body: body,
+        created_at: created_at,
+        firstName: firstName,
+        lastName: lastName
+      };
+
+      var newComment = new Comment(comment);
+      newComment.save(function(error, comment) {
+
+        if(error) {
+
+          console.log(error);
+          res.send(500,error);
+
+        } else {
+
+          res.json(comment);
+        }
+      });
+    }
+  };
+
   var linkItem_id = req.body.linkItem_id;
   var user_id = req.body.user_id;
   var body = req.body.body;
   var created_at = Date.now();
 
-  var comment = {
-    linkItem_id: linkItem_id,
-    user_id: user_id,
-    body: body,
-    created_at: created_at
-  };
+  User.findOne({
 
-  var newComment = new Comment(comment);
-  newComment.save(function(error, comment) {
-
-    if(error) {
-
-      console.log(error);
-      throw error;
-
-    } else {
-
-      res.json(comment);
-    }
-  });
+      _id: user_id
+    },
+    getUser
+  );
 });
 
 router.put('/comments/:id', function(req,res) {
@@ -349,6 +422,16 @@ router.put('/comments/:id', function(req,res) {
     updatedComment.body = req.body.body;
   }
 
+  if(req.body.firstName) {
+
+    updatedComment.firstName = req.body.firstName;
+  }
+
+  if(req.body.lastName) {
+
+    updatedComment.lastName = req.body.lastName;
+  }
+
   Comment.findByIdAndUpdate(req.params.id, {
 
     $set: updatedComment
@@ -358,7 +441,7 @@ router.put('/comments/:id', function(req,res) {
       if(error) {
 
         console.log(error);
-        throw error;
+        res.send(500,error);
       }
 
       res.send(comment);
@@ -371,7 +454,7 @@ router.put('/comments/:id', function(req,res) {
     if(error) {
 
       console.log(error);
-      throw error;
+      res.send(500,error);
 
     } else {
 
@@ -387,7 +470,7 @@ router.delete('/comments/:id', function(req,res) {
     if(error) {
 
       console.log(error);
-      throw error;
+      res.send(500,error);
 
     } else {
 
@@ -403,7 +486,7 @@ router.get('/users', function(req,res) {
     if(error) {
 
       console.log(error);
-      throw error;
+      res.send(500,error);
 
     } else {
 
@@ -424,7 +507,7 @@ router.get('/users/:id', function(req,res) {
       if(error) {
 
         console.log(error);
-        throw error;
+        res.send(500,error);
 
       } else {
 
@@ -454,7 +537,7 @@ router.post('/users', function(req,res) {
     if(error) {
 
       console.log(error);
-      throw error;
+      res.send(500,error);
 
     } else {
 
@@ -496,7 +579,7 @@ router.put('/users/:id', function(req,res) {
       if(error) {
 
         console.log(error);
-        throw error;
+        res.send(500,error);
       }
 
       res.send(user);
@@ -509,7 +592,7 @@ router.put('/users/:id', function(req,res) {
     if(error) {
 
       console.log(error);
-      throw error;
+      res.send(500,error);
 
     } else {
 
@@ -525,7 +608,7 @@ router.delete('/users/:id', function(req,res) {
     if(error) {
 
       console.log(error);
-      throw error;
+      res.send(500,error);
 
     } else {
 

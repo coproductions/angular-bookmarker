@@ -7,7 +7,10 @@
 
     <aside class="left-off-canvas-menu">
       <ul class="off-canvas-list">
-        <li><label>Foundation</label></li>
+        <li><label>Sort By</label></li>
+        <li class="rating"><a ng-click="order('-rating')">Rating</a></li>
+        <li class="added"><a href="#" ng-click="order('-created_at')">Date Added</a></li>
+        <li class="rating"><a ng-click="order('-commentNr')">Comments</a></li>
         <li class="has-submenu"><a href="#">TAGS</a>
             <ul class="left-submenu">
                 <li class="back"><a href="#">back</a></li>
@@ -47,14 +50,12 @@
         </div>
         <div class="small-9 columns">
           <div class="row">
-            <div class="small-2 columns">
-              <a href="#" class="button postfix" ng-click="addLink(url-input)">enter</a>
-            </div>
-            <div class="small-8 columns">
-              <input type="text" placeholder="enter your url or search term here" id="url-input">
+            <div class="small-10 columns">
+              <input type="text" placeholder="enter your url here" id="url-input">
+              <input type="text" id="search-input" placeholder="serch" ng-model="searchLink">
             </div>
             <div class="small-2 columns">
-              <a href="#" class="button postfix">Go</a>
+              <a href="#" ng-click="addLink(url-input)" class="button postfix">Go</a>
             </div>
           </div>
         </div>
@@ -66,10 +67,12 @@
       </div>
 
     </div>
+  <!--   <button ng-click="test()">test{{testVar}}</button> -->
     <div class="link_list_content">
 
-      <div class="list-body-container" ng-repeat="link in allLinks.data">
+      <div class="list-body-container" ng-repeat="link in allLinks | filter: searchLink | orderBy: orderParam " >
         <div class="link-house">
+
           <div class="link-title">
           {{link.title}}
           </div>
@@ -78,17 +81,18 @@
           </div>
           <div class="link-info">
             <a ng-href="editlink/{{link._id}}">edit</a>
+            <a ng-click="deleteLink(link._id)">delete</a>
             <span>
-              added:{{link.created_at}}
+              added:{{link.created_at | amCalendar}}
             </span>
-              <span>
+             <!--  <span>
               lastVisited:{{link.last_visited_at}}
-            </span>
+            </span> -->
             <span class="link-comments">
-              comments
+              comments:{{link.commentNr}}
             </span>
             <span class="link-rating">
-              rating
+              rating:{{link.rating}}
             </span>
             <span class="link-tag label">
               tag1
